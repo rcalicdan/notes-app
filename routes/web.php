@@ -8,7 +8,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', fn() => redirect('/login'))->name('home');
 
 Route::middleware(['auth'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::get('/raw-notes', Notes\RawViewer::class)
+    ->name('raw-notes')
+
+    ->middleware('auth');
 
     Route::prefix('notes')->name('notes.')->group(function () {
         Route::get('/',  Notes\Index::class)->name('index');

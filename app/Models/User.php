@@ -77,4 +77,9 @@ class User extends Authenticatable implements PasskeyUser
     {
         return $query->where('is_locked', false);
     }
+
+     public function notes(): HasMany
+    {
+        return $this->hasMany(Note::class);
+    }
 }

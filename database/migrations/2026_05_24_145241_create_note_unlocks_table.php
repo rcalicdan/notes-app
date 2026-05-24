@@ -1,28 +1,25 @@
 <?php
 
-declare(strict_types=1);
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class () extends Migration {
-    /**
-     * Run the migrations.
-     */
+return new class extends Migration
+{
     public function up(): void
     {
-        Schema::create('note_unlocks', function (Blueprint $table) {
+        Schema::create('note_unlock_attempts', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->foreignId('note_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->boolean('successful');
+            $table->string('ip_address', 45)->nullable();
+            $table->timestamp('attempted_at')->useCurrent();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('note_unlocks');
+        Schema::dropIfExists('note_unlock_attempts');
     }
 };
