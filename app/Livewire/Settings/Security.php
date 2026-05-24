@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Livewire\Settings;
 
 use App\Concerns\PasswordValidationRules;
@@ -74,7 +76,7 @@ class Security extends Component
         $this->canManageTwoFactor = Features::canManageTwoFactorAuthentication();
 
         if ($this->canManageTwoFactor) {
-            if (Fortify::confirmsTwoFactorAuthentication() && is_null(auth()->user()->two_factor_confirmed_at)) {
+            if (Fortify::confirmsTwoFactorAuthentication() && \is_null(auth()->user()->two_factor_confirmed_at)) {
                 $disableTwoFactorAuthentication(auth()->user());
             }
 
@@ -130,7 +132,8 @@ class Security extends Component
                 'created_at_diff' => $passkey->created_at->diffForHumans(),
                 'last_used_at_diff' => $passkey->last_used_at?->diffForHumans(),
             ])
-            ->toArray();
+            ->toArray()
+        ;
     }
 
     /**

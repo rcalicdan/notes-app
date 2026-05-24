@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Profile;
 use App\Livewire\Settings\Security;
@@ -18,5 +20,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->middleware([
             'password.confirm',
         ])
-        ->name('security.edit');
+        ->name('security.edit')
+    ;
 });

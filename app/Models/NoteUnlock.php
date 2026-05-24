@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
@@ -20,7 +22,7 @@ class NoteUnlockAttempt extends Model
     protected function casts(): array
     {
         return [
-            'successful'   => 'boolean',
+            'successful' => 'boolean',
             'attempted_at' => 'datetime',
         ];
     }

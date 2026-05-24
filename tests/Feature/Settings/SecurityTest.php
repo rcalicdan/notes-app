@@ -1,12 +1,14 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Livewire\Settings\Security;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Fortify\Features;
 use Livewire\Livewire;
 
-uses(\Illuminate\Foundation\Testing\RefreshDatabase::class);
+uses(Illuminate\Foundation\Testing\RefreshDatabase::class);
 
 beforeEach(function () {
     $this->skipUnlessFortifyHas(Features::twoFactorAuthentication());
@@ -25,7 +27,8 @@ test('security settings page can be rendered', function () {
 
     $response = $this->actingAs($user)
         ->withSession(['auth.password_confirmed_at' => time()])
-        ->get(route('security.edit'));
+        ->get(route('security.edit'))
+    ;
 
     $response->assertOk();
 
@@ -39,7 +42,8 @@ test('security settings page requires password confirmation when enabled', funct
     $user = User::factory()->create();
 
     $response = $this->actingAs($user)
-        ->get(route('security.edit'));
+        ->get(route('security.edit'))
+    ;
 
     $response->assertRedirect(route('password.confirm'));
 });
@@ -56,7 +60,8 @@ test('security settings page renders without two factor when feature is disabled
         ->assertSee('Update password')
         ->assertDontSee('Manage your passkeys for passwordless sign-in')
         ->assertDontSee('Add a passkey to sign in without a password')
-        ->assertDontSee('Two-factor authentication');
+        ->assertDontSee('Two-factor authentication')
+    ;
 });
 
 test('two factor authentication disabled when confirmation abandoned between requests', function () {
@@ -92,7 +97,8 @@ test('password can be updated', function () {
         ->set('current_password', 'password')
         ->set('password', 'new-password')
         ->set('password_confirmation', 'new-password')
-        ->call('updatePassword');
+        ->call('updatePassword')
+    ;
 
     $response->assertHasNoErrors();
 
@@ -110,7 +116,8 @@ test('correct password must be provided to update password', function () {
         ->set('current_password', 'wrong-password')
         ->set('password', 'new-password')
         ->set('password_confirmation', 'new-password')
-        ->call('updatePassword');
+        ->call('updatePassword')
+    ;
 
     $response->assertHasErrors(['current_password']);
 });
