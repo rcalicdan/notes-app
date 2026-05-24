@@ -14,12 +14,15 @@
         </flux:sidebar.header>
 
         <flux:sidebar.nav>
-            <flux:sidebar.group :heading="__('Platform')" class="grid">
-                <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
-                    wire:navigate>
-                    {{ __('Dashboard') }}
-                </flux:sidebar.item>
-            </flux:sidebar.group>
+            <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')"
+                wire:navigate>
+                {{ __('Dashboard') }}
+            </flux:sidebar.item>
+
+            <flux:sidebar.item icon="document-text" :href="route('notes.index')" :current="request()->routeIs('notes.*')"
+                wire:navigate>
+                {{ __('My Notes') }}
+            </flux:sidebar.item>
         </flux:sidebar.nav>
 
         <flux:spacer />
